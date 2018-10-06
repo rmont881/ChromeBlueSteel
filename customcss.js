@@ -3,7 +3,6 @@ let head = document.head || document.getElementsByTagName('head')[0];
 
 function checkDomain() {
     var host = window.location.hostname;
-    console.log(host, savedCss);
 
     for (var key in savedCss) {
         var re = new RegExp(key);
