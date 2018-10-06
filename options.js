@@ -26,6 +26,15 @@ let btnUrlPatternDel = document.getElementById('btnUrlPatternDel');
 
 let taCss = document.getElementById('css');
 
+function fetchPatterns() {
+    chrome.storage.sync.get('css', function(data) {
+        try { savedCss = JSON.parse(data.css); }
+        catch { savedCss = { '.*': 'body { }' } };
+
+        populatePatterns();
+    });
+}
+
 function populatePatterns() {
     while (selCssUrlPattern.firstChild) selCssUrlPattern.removeChild(selCssUrlPattern.firstChild);
 
@@ -36,16 +45,8 @@ function populatePatterns() {
 
 function saveCss() {
     chrome.storage.sync.set({ css: JSON.stringify(savedCss) }, function() {
-        console.log('css has been updated');
     });
 }
-
-chrome.storage.sync.get('css', function(data) {
-    try { savedCss = JSON.parse(data.css); }
-    catch { savedCss = { '.*': 'body { }' } };
-
-    populatePatterns();
-});
 
 selCssUrlPattern.addEventListener('change', function() {
     txtCssUrlPattern.value = this.value;
@@ -62,9 +63,16 @@ taCss.addEventListener('blur', function() {
 btnUrlPatternAdd.addEventListener('click', function() {
     var pattern = txtCssUrlPattern.value;
 
+    if (savedCss[pattern]) {
+        txtCssUrlPattern.value = '';
+        return;
+    }
+
     savedCss[pattern] = '';
     selCssUrlPattern.appendChild(new Option(pattern, pattern));
     txtCssUrlPattern.value = '';
+
+    saveCss();
 });
 
 btnUrlPatternEdit.addEventListener('click', function() {
@@ -82,12 +90,23 @@ btnUrlPatternEdit.addEventListener('click', function() {
     savedCss[oldValue] = null;
     delete savedCss[oldValue];
 
-    populatePatterns();
+    saveCss();
+    fetchPatterns();
 });
 
 btnUrlPatternDel.addEventListener('click', function() {
+    var pattern = selCssUrlPattern.value;
+
+    var i = selCssUrlPattern.selectedIndex;
+    selCssUrlPattern.removeChild(selCssUrlPattern.options[i]);
+
+    delete savedCss[pattern];
+
+    saveCss();
+    fetchPatterns();
 });
 
+fetchPatterns();
 
 //Text Replace
 let btnSaveStrReplaced = document.getElementById('btnSaveStrReplace');

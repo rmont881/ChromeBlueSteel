@@ -1,6 +1,8 @@
 var defaultData = {
     color: '#3aa757',
-    css: '{".*": "body { }"}',
+    css: JSON.stringify({
+        '.*': 'body { }'
+    }),
     originalString: 'Cloud',
     replacementString: 'Butt'
 };
