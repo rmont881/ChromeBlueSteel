@@ -3,7 +3,7 @@
 
 <head>
     <style>
-        button {
+        .color-button {
             height: 30px;
             width: 30px;
             outline: none;
@@ -14,8 +14,23 @@
             width: 75px;
         }
 
-        #btnSaveStrReplace {
-            width: 145px;
+        select#selCssUrlPattern {
+            width: 250px;
+            height: 250px;
+        }
+
+        textarea#css {
+            width: 250px;
+            height: 250px;
+        }
+
+        input#txtCssUrlPattern {
+            width: 244px;
+        }
+
+        div#urlPatternControls {
+            width: 250px;
+            text-align: center;
         }
     </style>
 </head>
@@ -27,10 +42,26 @@
         </div>
     </div>
 
-    <div>
+    <div style="display: block;">
         <p>Enter your custom CSS:</p>
-        <textarea id='css' rows="10" cols="35"></textarea>
+        <div style="float: left;">
+            <select id="selCssUrlPattern" size="10">
+            </select>
+            <div>
+                <input type="text" id="txtCssUrlPattern" />
+            </div>
+            <div id="urlPatternControls">
+                <button type="button" id="btnUrlPatternAdd">Add</button>
+                <button type="button" id="btnUrlPatternEdit">Edit</button>
+                <button type="button" id="btnUrlPatternDel">Delete</button>
+            </div>
+        </div>
+
+        <div style="float: left;">
+            <textarea id="css"></textarea>
+        </div>
     </div>
+  
 
     <button id="btnSaveCss" type="button">Save CSS</button>
 
@@ -40,6 +71,7 @@
             Replacement String: <input type="text" id="rptext">
         </div>
         <button id="btnSaveStrReplace" type="button">Save Text Replace</button>
+  </div>
 </body>
 <script src="options.js"></script>
 
