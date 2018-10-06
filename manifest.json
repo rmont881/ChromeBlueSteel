@@ -2,6 +2,17 @@
     "name": "BlueSteel Chrome Extension",
     "version": "1.0",
     "description": "An extension to modify page visuals",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/*"
+            ],
+            "js": [
+                "textreplace.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
     "manifest_version": 2,
     "permissions": [
         "activeTab",
