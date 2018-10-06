@@ -6,9 +6,11 @@ var replacementString = "";
 
 chrome.storage.sync.get('originalString', function(data) {
     originalString = data.originalString;
+    if(!originalString) return;
     chrome.storage.sync.get('replacementString', function(data) {
         replacementString = data.replacementString;
-        if((originalString || !(0 === originalString.length)) && (replacementString || !(0 === replacementString.length))) {
+        if(!replacementString) return;
+        if((originalString.length > 0) && (replacementString.length > 0)) {
             for (var i = 0; i < elements.length; i++) {
                 var element = elements[i];
             
