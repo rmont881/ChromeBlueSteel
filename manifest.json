@@ -8,7 +8,8 @@
                 "*://*/*"
             ],
             "js": [
-                "textreplace.js"
+                "textreplace.js",
+                "customcss.js"
             ],
             "run_at": "document_end"
         }
