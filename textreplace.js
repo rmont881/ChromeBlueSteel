@@ -1,18 +1,28 @@
 var elements = document.getElementsByTagName('*');
 
-for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
+var originalString = "";
+var replacementString = "";
 
-    for (var j = 0; j < element.childNodes.length; j++) {
-        var node = element.childNodes[j];
 
-        if (node.nodeType === 3) {
-            var text = node.nodeValue;
-            var replacedText = text.replace(/cloud/gi, 'my butt');
-
-            if (replacedText !== text) {
-                element.replaceChild(document.createTextNode(replacedText), node);
+chrome.storage.sync.get('originalString', function(data) {
+    originalString = data.originalString;
+    chrome.storage.sync.get('replacementString', function(data) {
+        replacementString = data.replacementString;
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+        
+            for (var j = 0; j < element.childNodes.length; j++) {
+                var node = element.childNodes[j];
+        
+                if (node.nodeType === 3) {
+                    var text = node.nodeValue;
+                    var replacedText = text.replace(new RegExp(originalString, 'gi'), replacementString);
+        
+                    if (replacedText !== text) {
+                        element.replaceChild(document.createTextNode(replacedText), node);
+                    }
+                }
             }
         }
-    }
-}
+    });
+});
