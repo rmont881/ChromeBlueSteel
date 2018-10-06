@@ -3,7 +3,11 @@
     "version": "1.0",
     "description": "An extension to modify page visuals",
     "manifest_version": 2,
-    "permissions": ["declarativeContent", "storage"],
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "storage"
+    ],
     "page_action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -11,7 +15,7 @@
             "32": "images/get_started32.png",
             "48": "images/get_started48.png",
             "128": "images/get_started128.png"
-          }
+        }
     },
     "icons": {
         "16": "images/get_started16.png",
@@ -20,7 +24,9 @@
         "128": "images/get_started128.png"
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "background.js"
+        ],
         "persistent": false
-      }
+    }
 }
