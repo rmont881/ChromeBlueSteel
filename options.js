@@ -23,6 +23,7 @@ let txtCssUrlPattern = document.getElementById('txtCssUrlPattern');
 let btnUrlPatternAdd = document.getElementById('btnUrlPatternAdd');
 let btnUrlPatternEdit = document.getElementById('btnUrlPatternEdit');
 let btnUrlPatternDel = document.getElementById('btnUrlPatternDel');
+
 let taCss = document.getElementById('css');
 
 function populatePatterns() {
@@ -85,4 +86,27 @@ btnUrlPatternEdit.addEventListener('click', function() {
 });
 
 btnUrlPatternDel.addEventListener('click', function() {
+});
+
+
+//Text Replace
+let btnSaveStrReplaced = document.getElementById('btnSaveStrReplace');
+let ogText = document.getElementById('ogtext');
+let rpText = document.getElementById('rptext');
+
+chrome.storage.sync.get('originalString', function(data) {
+    ogText.value = data.originalString;
+});
+
+chrome.storage.sync.get('replacementString', function(data) {
+    rpText.value = data.replacementString;
+});
+
+btnSaveStrReplaced.addEventListener('click', function() {
+    chrome.storage.sync.set({ originalString: ogText.value }, function() {
+        console.log('ogText has been updated');
+    });
+    chrome.storage.sync.set({ replacementString: rpText.value }, function() {
+        console.log('rpText has been updated');
+    });
 });
