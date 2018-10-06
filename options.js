@@ -15,3 +15,16 @@ function constructOptions(kButtonColors) {
 }
 
 constructOptions(kButtonColors);
+
+let btnSaveCss = document.getElementById('btnSaveCss');
+let taCss = document.getElementById('css');
+
+chrome.storage.sync.get('css', function(data) {
+    taCss.value = data.css;
+});
+
+btnSaveCss.addEventListener('click', function() {
+    chrome.storage.sync.set({ css: taCss.value }, function() {
+        console.log('css has been updated');
+    });
+});
